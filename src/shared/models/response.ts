@@ -1,4 +1,4 @@
-export interface EResponse {
+export interface IResponse {
     error: boolean,
     message: string,
     status?: number,
