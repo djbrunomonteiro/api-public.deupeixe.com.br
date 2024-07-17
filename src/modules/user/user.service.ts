@@ -112,4 +112,9 @@ export class UserService {
       throw new BadRequestException(response);
     }
   }
+
+  async getOneByEmail(email: string){
+    if(!email){return null}
+    return await this.userRepository.findOne({where: {email}});
+  }
 }
