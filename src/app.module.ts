@@ -6,6 +6,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './modules/auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PostModule } from './modules/post/post.module';
+import { UploadModule } from './modules/upload/upload.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -28,7 +30,8 @@ import { PostModule } from './modules/post/post.module';
     }),
     UserModule,
     AuthModule,
-    PostModule
+    PostModule,
+    UploadModule
   ],
   controllers: [AppController],
   providers: [AppService],
