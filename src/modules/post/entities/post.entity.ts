@@ -14,6 +14,9 @@ export class PostEntity {
   body: string;
 
   @Column({ type: 'varchar', length: 255, default: ''})
+  resume: string;
+
+  @Column({ type: 'varchar', length: 255, default: ''})
   category: string;
 
   @Column({type: 'varchar', default: ''} )

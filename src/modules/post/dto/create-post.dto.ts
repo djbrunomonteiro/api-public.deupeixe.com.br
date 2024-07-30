@@ -8,6 +8,9 @@ import {
 import { EPostStatus } from 'src/shared/enums/e-core';
 
 export class CreatePostDto {
+  @IsOptional()
+  id: number;
+
   @IsNotEmpty()
   @IsString()
   title: string;
@@ -15,6 +18,10 @@ export class CreatePostDto {
   @IsNotEmpty()
   @IsString()
   body: string;
+
+  @IsOptional()
+  @IsString()
+  resume: string;
 
   @IsOptional()
   @IsString()

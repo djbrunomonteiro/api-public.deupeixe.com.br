@@ -39,10 +39,9 @@ export class AuthService {
       return response;
     } catch (error) {
       console.log(error);
-      
-      const { status, message } = error;
+      const { status, message } = error.response;
       response = { error: true, status, message };
-      throw new BadRequestException(response);
+      throw new BadRequestException(error.response);
     }
   }
 
@@ -69,7 +68,7 @@ export class AuthService {
       }
 
       const results = this.jwtService.verify(access_token);
-      response = {error: true, status: 200, results, message: EMessageResponse.SUCCESSO};
+      response = {error: true, status: 200, results: results , message: EMessageResponse.SUCCESSO};
       return response;
 
     } catch (error){

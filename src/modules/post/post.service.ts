@@ -9,16 +9,22 @@ import { EMessageResponse } from 'src/shared/enums/messages';
 
 @Injectable()
 export class PostService {
-
   constructor(
     @InjectRepository(PostEntity)
     private postRepository: Repository<PostEntity>,
-  ){}
+  ) {}
   async create(createPostDto: CreatePostDto) {
     let response: IResponse;
 
+    console.log('createPostDto', createPostDto);
+
+    delete createPostDto.id;
+
     try {
       const results = await this.postRepository.save(createPostDto);
+
+      console.log('results', results);
+
       response = {
         error: false,
         status: 201,
@@ -27,11 +33,12 @@ export class PostService {
       };
       return response;
     } catch (error) {
+      console.log(error);
+
       const { status, message } = error;
       response = { error: true, status, message };
       throw new BadRequestException(response);
     }
-    
   }
 
   async findAll(start = 0, limit = 50) {
@@ -41,8 +48,8 @@ export class PostService {
         skip: start,
         take: limit,
         order: {
-          id: 'DESC'
-        }
+          id: 'DESC',
+        },
       });
 
       response = {
@@ -62,7 +69,7 @@ export class PostService {
   async findOne(id: number) {
     let response: IResponse;
     try {
-      const results = await this.postRepository.findOneBy({id})
+      const results = await this.postRepository.findOneBy({ id });
       response = {
         error: false,
         status: 200,
@@ -80,7 +87,7 @@ export class PostService {
   async findOneByUrl(url: string) {
     let response: IResponse;
     try {
-      const results = await this.postRepository.findOneBy({url})
+      const results = await this.postRepository.findOneBy({ url });
       response = {
         error: false,
         status: 200,
@@ -99,7 +106,8 @@ export class PostService {
     let response: IResponse;
 
     try {
-      const results = await this.postRepository.update(id, updatePostDto);
+      await this.postRepository.update(id, updatePostDto);
+      const results = await this.postRepository.findOneBy({ id });
       response = {
         error: false,
         status: 200,
@@ -114,7 +122,22 @@ export class PostService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  async remove(id: number) {
+    let response: IResponse;
+
+    try {
+      const results = await this.postRepository.delete(id);
+      response = {
+        error: false,
+        status: 200,
+        results,
+        message: EMessageResponse.SUCCESSO,
+      };
+      return response;
+    } catch (error) {
+      const { status, message } = error;
+      response = { error: true, status, message };
+      throw new BadRequestException(response);
+    }
   }
 }
