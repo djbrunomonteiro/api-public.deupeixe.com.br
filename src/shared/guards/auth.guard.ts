@@ -14,7 +14,6 @@ export class AuthGuard implements CanActivate {
             let error = false;
             const authorization = context.switchToHttp().getRequest()?.headers?.authorization as string;       
             const token = authorization?.split(' ')[1];
-            
             if(token){
                 const resValid = await this.authService.isValidToken(token);
                 error = resValid.error;
