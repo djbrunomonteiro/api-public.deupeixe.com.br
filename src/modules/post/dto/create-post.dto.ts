@@ -43,6 +43,15 @@ export class CreatePostDto {
   @IsString()
   image: string;
 
+  @IsOptional()
+  @IsString()
+  image_alt: string;
+
+  @IsOptional()
+  @IsString()
+  image_source: string;
+
+
   @IsNotEmpty()
   @IsEnum(EPostStatus)
   status: EPostStatus;

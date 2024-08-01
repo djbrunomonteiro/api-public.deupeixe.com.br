@@ -32,6 +32,14 @@ export class PostEntity {
   @IsString()
   image: string;
 
+  @Column({ type: 'varchar', length: 255, default: ''})
+  @IsString()
+  image_alt: string;
+
+  @Column({ type: 'varchar', length: 255, default: ''})
+  @IsString()
+  image_source: string;
+
   @Column({ type: 'enum', enum: EPostStatus, default: EPostStatus.PUBLISHED})
   status: string;
 
