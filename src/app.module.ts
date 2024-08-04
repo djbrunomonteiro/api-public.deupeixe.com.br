@@ -7,6 +7,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PostModule } from './modules/post/post.module';
 import { UploadModule } from './modules/upload/upload.module';
+import { LinkModule } from './modules/link/link.module';
 
 @Module({
   imports: [
@@ -31,7 +32,8 @@ import { UploadModule } from './modules/upload/upload.module';
     UserModule,
     AuthModule,
     PostModule,
-    UploadModule
+    UploadModule,
+    LinkModule
   ],
   controllers: [AppController],
   providers: [AppService],
